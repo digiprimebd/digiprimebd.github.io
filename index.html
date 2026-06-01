@@ -56,7 +56,7 @@
         .footer-text-box a { color: #25D366; text-decoration: none; font-weight: bold; }
         .payment-title { margin-top: 25px; font-size: 15px; color: #8f8fb3; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
         
-        /* আপনার রিকোয়েস্ট অনুযায়ী পেমেন্ট অপশনের লোগো ও লেখার গ্রিড লেআউট */
+        /* পেমেন্ট অপশনের পরিমার্জিত গ্রিড লেআউট */
         .payment-grid { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 15px; padding-bottom: 35px; align-items: center; }
         .pay-badge-style { 
             font-size: 13px; 
@@ -80,31 +80,46 @@
         .nexus { background: #00a4e4; color: white; font-weight: 800; }
         .upay { background: #ffc425; color: #121212; font-weight: 800; }
         
-        /* ভিসা ও মাস্টারকার্ড অফিসিয়াল ইনলাইন ভেক্টর আইকন */
-        .pay-vector-icon {
-            width: 65px;
+        /* ঠিক করা পরিচ্ছন্ন ভিসা ব্যাজ */
+        .visa { background: #1A1F71; color: white; font-weight: 900; font-style: italic; font-size: 15px; letter-spacing: 0.5px; }
+        
+        /* মাস্টারকার্ড কন্টেইনার ব্যাজ */
+        .mastercard-badge {
+            background: #111111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+            min-width: 65px;
             height: 38px;
             border-radius: 8px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-            display: block;
+            box-sizing: border-box;
         }
-
-        /* অফ-স্ক্রিন রিসিপ্ট ডিজাইন */
-        #receiptBox { position: fixed; top: -9999px; left: -9999px; width: 340px; background: #ffffff; color: #000000; padding: 25px; border-radius: 10px; font-family: Arial, sans-serif; box-sizing: border-box; }
-        .receipt-header { text-align: center; border-bottom: 2px dashed #999; padding-bottom: 15px; margin-bottom: 15px; }
-        .receipt-header h1 { color: #25D366; font-size: 26px; margin: 0 0 8px 0; font-weight: bold; }
-        .receipt-header h2 { margin: 0 0 5px 0; color: #1a1c4b; font-size: 22px; }
-        .receipt-header p { margin: 5px 0 0 0; color: #666; font-size: 13px; }
-        .r-row { margin-bottom: 12px; font-size: 15px; word-wrap: break-word; }
-        .r-row strong { color: #333; }
-        .r-total { text-align: right; border-top: 2px dashed #999; padding-top: 15px; margin-top: 15px; font-size: 20px; font-weight: bold; color: #e63946; }
-
-        /* ইনস্ট্রাকশন মোডাল (পপ-আপ) */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); justify-content: center; align-items: center; z-index: 1000; padding: 20px; box-sizing: border-box; }
-        .modal-content { background: #11143a; padding: 25px 20px; border-radius: 15px; text-align: center; width: 100%; max-width: 400px; border: 1px solid #1f245c; }
-        .modal-content p { color: #d1d1e0; margin-bottom: 15px; font-size: 14px; line-height: 1.5; }
-        #generatedReceiptImg { width: 100%; border-radius: 10px; border: 2px solid #fff; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .payment-instruction { background: rgba(255, 183, 3, 0.1); color: #ffb703; border: 1px dashed #ffb703; padding: 10px; border-radius: 8px; display: inline-block; font-weight: bold; font-size: 13px; line-height: 1.4; margin-top: 10px;}
+        .mc-circles {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 36px;
+            height: 22px;
+        }
+        .mc-circle-red {
+            width: 22px;
+            height: 22px;
+            background: #EB001B;
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+        }
+        .mc-circle-orange {
+            width: 22px;
+            height: 22px;
+            background: #F79E1B;
+            border-radius: 50%;
+            position: absolute;
+            right: 0;
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
@@ -141,7 +156,7 @@
 
         <div class="payment-title">Payment Option</div>
         
-        <!-- আপনার নির্দেশ মতো পেমেন্ট অপশন লোগো ও লেখার স্টাইল গ্রিড -->
+        <!-- পরিমার্জিত পেমেন্ট অপশন ব্যাজ গ্রিড -->
         <div class="payment-grid">
             <div class="pay-badge-style bkash">bKash</div>
             <div class="pay-badge-style nagad">Nagad</div>
@@ -149,26 +164,15 @@
             <div class="pay-badge-style dbbl">DBBL</div>
             <div class="pay-badge-style nexus">Nexus Pay</div>
             <div class="pay-badge-style upay">Upay</div>
+            <div class="pay-badge-style visa">VISA</div>
             
-            <!-- VISA Official Exact Logo -->
-            <svg class="pay-vector-icon" viewBox="0 0 70 45" xmlns="http://www.w3.org/2000/svg" style="background:#1A1F71;">
-                <g fill="#FFFFFF" transform="translate(10, 13) scale(0.95)">
-                    <path d="M14.3,0 L9.3,18.2 L4.8,18.2 L1.5,4 C0.7,2.5, 0,1.8, 0,1.8 L0.1,1.5 L7.2,1.5 C8.1,1.5, 8.8,2.1, 9,3 L10.8,12.5 L15.3,0 L14.3,0 Z" fill="#F7B614"/>
-                    <path d="M14.3,0 L9.3,18.2 L4.8,18.2 L1.5,4 C0.7,2.5, 0,1.8, 0,1.8 L0.1,1.5 L7.2,1.5 C8.1,1.5, 8.8,2.1, 9,3 L10.8,12.5 L15.3,0 L14.3,0 Z" />
-                    <path d="M22,0 L18.5,18.2 L14.2,18.2 L17.7,0 L22,0 Z"/>
-                    <path d="M32,5.5 C32,2, 26.5,1.5, 26.3,0 C26.3,0.5, 28,1.2, 29.5,2.3 C30,2.8, 30.2,3.5, 30,4.2 C29.2,6.5, 25.5,7.5, 23.5,6 C22.2,5, 21.5,4, 21.5,2.5 C21.5,1, 23.5,0.5, 24.5,0 L20.2,0 C19.5,1, 19,2.5, 19,4 C19,9.5, 26.5,10, 27.5,12 C28,13, 26.5,14, 24.5,14 C22.5,14, 20.5,13, 19.5,12 L15.2,18.2 C16.5,19, 19.5,20, 22.5,20 C28.5,20, 32,17, 32,12.5 L32,5.5 Z" transform="translate(2.5,0)"/>
-                    <path d="M39.5,0 L35.5,18.2 L31.5,18.2 L37.5,0 L39.5,0 Z" transform="translate(5,0)"/>
-                    <path d="M43,0 C42,0, 41.2,0.6, 41,1.5 L34,18.2 L38.5,18.2 L39.5,15 L45,15 L45.5,18.2 L49.5,18.2 L46,0 L43,0 Z M40.5,11.5 L42.5,4.5 L44.3,11.5 Z" transform="translate(6,0)"/>
-                </g>
-            </svg>
-            
-            <!-- Mastercard Official Exact Logo -->
-            <svg class="pay-vector-icon" viewBox="0 0 70 45" xmlns="http://www.w3.org/2000/svg" style="background:#111111;">
-                <g transform="translate(14, 7)">
-                    <circle cx="16" cy="15" r="15" fill="#EB001B"/>
-                    <circle cx="28" cy="15" r="15" fill="#F79E1B" fill-opacity="0.85"/>
-                </g>
-            </svg>
+            <!-- সুবিন্যস্ত মাস্টারকার্ড লোগো -->
+            <div class="mastercard-badge">
+                <div class="mc-circles">
+                    <div class="mc-circle-red"></div>
+                    <div class="mc-circle-orange"></div>
+                </div>
+            </div>
         </div>
     </div>
 
