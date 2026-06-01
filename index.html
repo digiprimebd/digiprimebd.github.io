@@ -54,18 +54,33 @@
         .footer-text-box a { color: #25D366; text-decoration: none; font-weight: bold; }
         .payment-title { margin-top: 25px; font-size: 15px; color: #8f8fb3; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
         
-        /* একক পেমেন্ট গেটওয়ে ব্যানার টেমপ্লেট ডিজাইন */
-        .payment-gateway-banner {
+        /* অল-ইন-ওয়ান পেমেন্ট ব্যানার ডিজাইন (CSS দিয়ে তৈরি রেসপন্সিভ ব্যানার) */
+        .payment-banner-container {
             width: 100%;
             max-width: 460px;
-            height: auto;
-            background: #ffffff; /* লোগোগুলোকে ফুটিয়ে তোলার জন্য সাদা ব্যাকগ্রাউন্ড */
-            padding: 6px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            background: #ffffff;
+            padding: 12px 8px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             margin: 15px auto 35px auto;
-            display: block;
             box-sizing: border-box;
+        }
+        .banner-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .banner-logo {
+            height: 28px;
+            width: auto;
+            object-fit: contain;
+        }
+        .banner-divider {
+            height: 20px;
+            width: 1px;
+            background: #ccc;
         }
 
         /* অফ-স্ক্রিন রিসিপ্ট ডিজাইন */
@@ -119,7 +134,19 @@
 
         <div class="payment-title">Payment Option</div>
         
-        <img class="payment-gateway-banner" src="https://www.sslcommerz.com/wp-content/uploads/2019/11/footer_logo.png" alt="All Bangladeshi Payment Gateways Banner">
+        <div class="payment-banner-container">
+            <div class="banner-row">
+                <img class="banner-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Bkash_logo.svg/256px-Bkash_logo.svg.png" alt="bKash">
+                <div class="banner-divider"></div>
+                <img class="banner-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Nagad_Logo.svg/256px-Nagad_Logo.svg.png" alt="Nagad">
+                <div class="banner-divider"></div>
+                <img class="banner-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Rocket_穩_Logo.svg/256px-Rocket_穩_Logo.svg.png" alt="Rocket">
+                <div class="banner-divider"></div>
+                <img class="banner-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/256px-Visa_Inc._logo.svg.png" alt="Visa">
+                <div class="banner-divider"></div>
+                <img class="banner-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/256px-Mastercard-logo.svg.png" alt="Mastercard">
+            </div>
+        </div>
     </div>
 
     <div id="servicePage" class="page">
